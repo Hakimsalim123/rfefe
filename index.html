@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Valentine's Day Proposal ❤️</title>
+    <style>
+        body {
+            background: #ff99cc;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Comic Sans MS', cursive;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        h1 {
+            color: #cc0066;
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+
+        .buttons {
+            position: relative;
+            display: inline-block;
+        }
+
+        #yesBtn {
+            background: #00cc66;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            margin-right: 20px;
+        }
+
+        #noBtn {
+            background: #ff4444;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            position: absolute;
+            transition: all 0.3s;
+        }
+
+        .rose {
+            position: absolute;
+            font-size: 30px;
+            animation: fall linear forwards;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100vh) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        .celebration {
+            font-size: 4em;
+            color: #cc0066;
+            animation: celebrate 1s ease-out;
+        }
+
+        @keyframes celebrate {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Will you be my Valentine? 💝</h1>
+        <div class="buttons">
+            <button id="yesBtn">YES!</button>
+            <button id="noBtn">NO</button>
+        </div>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const container = document.querySelector('.container');
+        let escapeSpeed = 50;
+
+        // No button escape mechanism
+        noBtn.addEventListener('mouseover', () => {
+    const maxX = window.innerWidth - noBtn.offsetWidth;
+    const maxY = window.innerHeight - noBtn.offsetHeight;
+    const newX = Math.random() * maxX;
+    const newY = Math.random() * maxY;
+
+    noBtn.style.position = 'absolute'; // Ensure it can move freely
+    noBtn.style.left = `${newX}px`;
+    noBtn.style.top = `${newY}px`;
+});
+
+        // Yes button celebration
+        yesBtn.addEventListener('click', () => {
+            // Create falling roses
+            for(let i = 0; i < 50; i++) {
+                createRose();
+            }
+
+            // Show celebration message
+            container.innerHTML = `
+                <div class="celebration">
+                    🎉❤️🎉<br>
+                    OMG! YOU SAID YES!<br>
+                    I LOVE YOU SO MUCH!<br>
+                    You better have said yes 🤨<br>
+                    🌹🥂😘
+                </div>
+            `;
+        });
+
+        function createRose() {
+            const rose = document.createElement('div');
+            rose.classList.add('rose');
+            rose.innerHTML = '🌹';
+            rose.style.left = Math.random() * window.innerWidth + 'px';
+            rose.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(rose);
+
+            // Remove rose after animation
+            setTimeout(() => {
+                rose.remove();
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
