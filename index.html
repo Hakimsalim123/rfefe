@@ -105,13 +105,17 @@
         let escapeSpeed = 50;
 
         // No button escape mechanism
-        noBtn.addEventListener('mouseover', () => {
-    const maxX = window.innerWidth - noBtn.offsetWidth;
-    const maxY = window.innerHeight - noBtn.offsetHeight;
-    const newX = Math.random() * maxX;
-    const newY = Math.random() * maxY;
+        noBtn.addEventListener('mouseover', (event) => {
+    let moveX = (Math.random() > 0.5 ? 1 : -1) * (Math.random() * 100 + 50);
+    let moveY = (Math.random() > 0.5 ? 1 : -1) * (Math.random() * 100 + 50);
 
-    noBtn.style.position = 'absolute'; // Ensure it can move freely
+    let newX = noBtn.offsetLeft + moveX;
+    let newY = noBtn.offsetTop + moveY;
+
+    // Ensure it stays within window bounds
+    newX = Math.max(0, Math.min(window.innerWidth - noBtn.offsetWidth, newX));
+    newY = Math.max(0, Math.min(window.innerHeight - noBtn.offsetHeight, newY));
+
     noBtn.style.left = `${newX}px`;
     noBtn.style.top = `${newY}px`;
 });
